@@ -20,5 +20,9 @@ const getProfile = () => {
   return axios.get(`${ApiBaseUrl}/users/get-profile`);
 };
 
-const Api = { getProfile };
+const generatePlan = (destination) => {
+  return axios.post(`${ApiBaseUrl}/users/generate-itinerary`, { destination });
+};
+
+const Api = { getProfile, generatePlan };
 export default Api;

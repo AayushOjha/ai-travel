@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
 import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import Api from "../utils/api";
+import { DescriptionComponent } from "../components/Description";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -14,13 +16,13 @@ const HomePage = () => {
   const [place, setPlace] = useState();
 
   const generateItinerary = async () => {
-    if (place) { 
-      setLoading(true)
-      console.log("generating for", place);
-      setItinerary("jao or gumo");
-      setLoading(false)
-    }else{
-      alert('please enter place name')
+    if (place) {
+      setLoading(true);
+      const res = await Api.generatePlan(place);
+      setItinerary(res.data);
+      setLoading(false);
+    } else {
+      alert("please enter place name");
     }
   };
 
@@ -56,8 +58,8 @@ const HomePage = () => {
           variant="outlined"
           fullWidth
           value={place}
-          onChange={({target}) => {
-            setPlace(target.value)
+          onChange={({ target }) => {
+            setPlace(target.value);
           }}
         />
         <Button variant="outlined" onClick={generateItinerary}>
@@ -67,7 +69,7 @@ const HomePage = () => {
 
       <div className="itinerary-box">
         {loading ? <p>Generating for you</p> : <></>}
-        {itinerary ? <p>{itinerary}</p> : <></>}
+        {itinerary ? <DescriptionComponent description={itinerary} /> : <></>}
       </div>
     </div>
   );

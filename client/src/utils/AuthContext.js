@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { ApiBaseUrl, USER_TOKEN } from "./constants";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Api from "./api";
 
 // Create a Context for the auth information
@@ -12,6 +12,8 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   
   const navigate = useNavigate();
+  const location = useLocation();
+
 
   const [isLogedIn, setIsLogedIn] = useState()
   const [auth, setAuth] = useState({
@@ -33,7 +35,7 @@ export const AuthProvider = ({ children }) => {
       }else{
         setIsLogedIn(false)
       }
-  }, [])
+  }, [location.pathname])
 
   // Function to log in the user
   const login = (token) => {

@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
       const AuthToken = Cookies.get(USER_TOKEN)
       if (AuthToken) {
         Api.getProfile().then(res => {
-          setAuth({token: AuthToken, user: res.user})
+          setAuth({token: AuthToken, user: res.data.user})
           setIsLogedIn(true)
         }).catch((e) => {
           console.error(e)

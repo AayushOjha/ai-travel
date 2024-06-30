@@ -16,7 +16,7 @@ async function isAuthenticated(req, res, next) {
       process.env.JWT_SECRET || "default_value"
     );
 
-    await Users.findOne({ user_name: decoded.userName })
+    await Users.findOne({ email: decoded.email })
       .then((user) => {
         req.user = user;
         next();

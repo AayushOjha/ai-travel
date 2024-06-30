@@ -24,5 +24,10 @@ const generatePlan = (destination) => {
   return axios.post(`${ApiBaseUrl}/users/generate-itinerary`, { destination });
 };
 
-const Api = { getProfile, generatePlan };
+const updatePreferances = (data) => {
+  return axios.post(`${ApiBaseUrl}/users/preferences`, { data });
+};
+
+
+const Api = { getProfile, generatePlan, updatePreferances };
 export default Api;

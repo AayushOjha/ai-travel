@@ -7,8 +7,6 @@ const { generateToken } = require("../helpers/tokenGenerator");
 router.post("/login-with-google", async (req, res) => {
   const authToken = req.body?.token;
 
-  console.log(`\n\n t: `, authToken);
-
   if (authToken) {
     try {
       const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);

@@ -6,6 +6,8 @@ const express = require("express");
 
 const { DatabaseConnectionString, Port } = require("./src/helpers/constants");
 const authRouter = require("./src/routes/auth");
+const userRouter = require("./src/routes/user");
+const isAuthenticated = require("./src/middleware/auth");
 
 const app = express();
 
@@ -19,6 +21,7 @@ app.use(
 
 // Routes
 app.use("/auth", authRouter);
+app.use("/users", isAuthenticated, userRouter)
 
 mongoose
   .connect(DatabaseConnectionString)
